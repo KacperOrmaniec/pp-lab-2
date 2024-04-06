@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class StudentManager {
     public static void main(String[] args) 
@@ -9,6 +10,11 @@ public class StudentManager {
         double sredniaChemia = 0.0;
         double sredniaFizyka = 0.0;
         double sredniaInformatyka = 0.0;
+
+        double medianaMatematyka = 0.0;
+        double medianaChemia = 0.0;
+        double medianaFizyka = 0.0;
+        double medianaInformatyka = 0.0;
 
         // Tablica nazw przedmiotów
         String[] przedmioty = {"matematyki", "chemii", "fizyki", "informatyki"};
@@ -27,15 +33,19 @@ public class StudentManager {
                 {
                     case "matematyki":
                         sredniaMatematyka = obliczSrednia(oceny);
+                        medianaMatematyka = ObliczMediane(oceny);
                         break;
                     case "chemii":
                         sredniaChemia = obliczSrednia(oceny);
+                        medianaChemia = ObliczMediane(oceny);
                         break;
                     case "fizyki":
                         sredniaFizyka = obliczSrednia(oceny);
+                        medianaFizyka = ObliczMediane(oceny);
                         break;
                     case "informatyki":
                         sredniaInformatyka = obliczSrednia(oceny);
+                        medianaInformatyka = ObliczMediane(oceny);
                         break;
                 }
             }
@@ -44,15 +54,19 @@ public class StudentManager {
         // Wyświetl średnie ocen
         if (sredniaMatematyka != 0.0) {
             System.out.println("Średnia ocen z matematyki: " + sredniaMatematyka);
+            System.out.println("Mediana ocen z matematyki: " + medianaMatematyka);
         }
         if (sredniaChemia != 0.0) {
             System.out.println("Średnia ocen z chemii: " + sredniaChemia);
+            System.out.println("Mediana ocen z chemii: " + medianaChemia);
         }
         if (sredniaFizyka != 0.0) {
             System.out.println("Średnia ocen z fizyki: " + sredniaFizyka);
+            System.out.println("Mediana ocen z fizyki: " + medianaFizyka);
         }
         if (sredniaInformatyka != 0.0) {
             System.out.println("Średnia ocen z informatyki: " + sredniaInformatyka);
+            System.out.println("Mediana ocen z informatyki: " + medianaInformatyka);
         }
 
         scanner.close();
@@ -100,11 +114,29 @@ public class StudentManager {
         return suma / oceny.length;
     }
 
+    public static double ObliczMediane(double[] oceny) 
+    {
+        Arrays.sort(oceny);
+
+        int length = oceny.length;
+
+         // Sprawdzenie, czy liczba elementów w tablicy jest parzysta czy nieparzysta
+         if (length % 2 == 0) {
+            // Jeśli liczba elementów jest parzysta, mediana to średnia arytmetyczna dwóch środkowych wartości
+            return (oceny[length / 2 - 1] + oceny[length / 2]) / 2.0;
+        } else {
+            // Jeśli liczba elementów jest nieparzysta, mediana to wartość środkowego elementu
+            return oceny[length / 2];
+        }
+    }
+
     // Metoda do wyświetlania ocen oraz ich sumy
     public static void wyswietlOcenyISrednia(double[] oceny) 
     {
         System.out.println("Oceny:");
+        double srednia = obliczSrednia(oceny);
         double suma = 0;
+        double mediana = ObliczMediane(oceny);
 
         for (int i = 0; i < oceny.length; i++) 
         {
@@ -113,7 +145,9 @@ public class StudentManager {
         }
 
         System.out.println("Suma ocen: " + suma);
-        System.out.println("Średnia ocen: " + (suma / oceny.length));
+        System.out.println("Średnia ocen: " + srednia);
+        System.out.println("Mediana ocen: " + mediana);
+
     }
 
     public static boolean czyWprowadzicOceny(Scanner scanner, String przedmiot) 
