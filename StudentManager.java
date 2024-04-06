@@ -5,33 +5,61 @@ public class StudentManager{
     {
         Scanner scanner = new Scanner(System.in);
         
+        double sredniaMatematyka = 0.0;
+        double sredniaChemia = 0.0;
+        double sredniaFizyka  = 0.0;
+        double sredniaInformatyka = 0.0;
+        
+
         //Oceny z matematyki
-        System.out.println("Podaj oceny z matematyki:");
-        double[] ocenyMatematyka = wprowadzOceny(scanner);
+        if (czyWprowadzicOceny(scanner, "matematyki"))
+        {
+            System.out.println("Podaj oceny z matematyki:");
+            double[] ocenyMatematyka = wprowadzOceny(scanner);
+            sredniaMatematyka = obliczSrednia(ocenyMatematyka);
+        }
         
         //Oceny z chemii
-        System.out.println("Podaj oceny z chemii:");
-        double[] ocenyChemia = wprowadzOceny(scanner);
+        if (czyWprowadzicOceny(scanner, "chemii"))
+        {
+            System.out.println("Podaj oceny z chemii:");
+            double[] ocenyChemia = wprowadzOceny(scanner);
+            sredniaChemia = obliczSrednia(ocenyChemia);
+        }
         
         //Oceny z fizyki
-        System.out.println("Podaj oceny z fizyki:");
-        double[] ocenyFizyka = wprowadzOceny(scanner);
+        if (czyWprowadzicOceny(scanner, "fizyki"))
+        {
+            System.out.println("Podaj oceny z fizyki:");
+            double[] ocenyFizyka = wprowadzOceny(scanner);
+            sredniaFizyka = obliczSrednia(ocenyFizyka);
+        }
         
         //Oceny z informatyki
-        System.out.println("Podaj oceny z informatyki:");
-        double[] ocenyInformatyka = wprowadzOceny(scanner);
-        
-        // Oblicz średnią ocen z każdego przedmiotu
-        double sredniaMatematyka = obliczSrednia(ocenyMatematyka);
-        double sredniaChemia = obliczSrednia(ocenyChemia);
-        double sredniaFizyka = obliczSrednia(ocenyFizyka);
-        double sredniaInformatyka = obliczSrednia(ocenyInformatyka);
+        if (czyWprowadzicOceny(scanner, "informatyki"))
+        {
+            System.out.println("Podaj oceny z informatyki:");
+            double[] ocenyInformatyka = wprowadzOceny(scanner);
+            sredniaInformatyka = obliczSrednia(ocenyInformatyka);
+        }
         
         // Wyświetl średnie ocen
-        System.out.println("Średnia ocen z matematyki: " + sredniaMatematyka);
+        if (sredniaMatematyka != 0.0)
+        {
+            System.out.println("Średnia ocen z matematyki: " + sredniaMatematyka);
+        }
+        if (sredniaChemia != 0.0)
+        {
         System.out.println("Średnia ocen z chemii: " + sredniaChemia);
+        }
+        if (sredniaFizyka != 0.0)
+        {
         System.out.println("Średnia ocen z fizyki: " + sredniaFizyka);
+        }
+        if (sredniaInformatyka != 0.0)
+        {
         System.out.println("Średnia ocen z Informatyki: " + sredniaInformatyka);
+        }
         
         scanner.close();
     }
@@ -62,5 +90,12 @@ public class StudentManager{
         }
         
         return suma / oceny.length;
+    }
+
+    public static boolean czyWprowadzicOceny(Scanner scanner, String przedmiot) 
+    {
+        System.out.println("Czy chcesz wprowadzić oceny z przedmiotu " + przedmiot + "? (tak/nie)");
+        String odpowiedz = scanner.next();
+        return odpowiedz.equalsIgnoreCase("tak");
     }
 }
