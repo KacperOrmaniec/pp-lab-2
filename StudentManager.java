@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
 public class StudentManager {
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         Scanner scanner = new Scanner(System.in);
 
         double sredniaMatematyka = 0.0;
@@ -13,14 +14,17 @@ public class StudentManager {
         String[] przedmioty = {"matematyki", "chemii", "fizyki", "informatyki"};
 
         // Pętla dla każdego przedmiotu
-        for (String przedmiot : przedmioty) {
-            if (czyWprowadzicOceny(scanner, przedmiot)) {
+        for (String przedmiot : przedmioty) 
+        {
+            if (czyWprowadzicOceny(scanner, przedmiot)) 
+            {
                 System.out.println("Podaj oceny z " + przedmiot + ":");
                 double[] oceny = wprowadzOceny(scanner);
                 wyswietlOcenyISrednia(oceny);
                 
                 // Obliczanie średniej dla danego przedmiotu
-                switch (przedmiot) {
+                switch (przedmiot) 
+                {
                     case "matematyki":
                         sredniaMatematyka = obliczSrednia(oceny);
                         break;
@@ -61,19 +65,35 @@ public class StudentManager {
 
         double[] oceny = new double[liczbaOcen];
 
-        for (int i = 0; i < liczbaOcen; i++) {
-            System.out.println("Podaj ocenę " + (i + 1) + ":");
-            oceny[i] = scanner.nextDouble();
+        for (int i = 0; i < liczbaOcen; i++) 
+        {
+            boolean poprawnaOcena = false;
+            while (!poprawnaOcena) 
+            {
+                System.out.println("Podaj ocenę " + (i + 1) + ":");
+                double ocena = scanner.nextDouble();
+                if (ocena >= 1 && ocena <= 6)
+                {
+                    oceny[i] = ocena;
+                    poprawnaOcena = true;
+                } 
+                else 
+                {
+                    System.out.println("Ocena musi być z zakresu od 1 do 6. Podaj ocenę ponownie.");
+                }
+            }
         }
 
         return oceny;
     }
 
     // Metoda do obliczania średniej z tablicy ocen
-    public static double obliczSrednia(double[] oceny) {
+    public static double obliczSrednia(double[] oceny) 
+    {
         double suma = 0;
 
-        for (double ocena : oceny) {
+        for (double ocena : oceny) 
+        {
             suma += ocena;
         }
 
@@ -81,11 +101,13 @@ public class StudentManager {
     }
 
     // Metoda do wyświetlania ocen oraz ich sumy
-    public static void wyswietlOcenyISrednia(double[] oceny) {
+    public static void wyswietlOcenyISrednia(double[] oceny) 
+    {
         System.out.println("Oceny:");
         double suma = 0;
 
-        for (int i = 0; i < oceny.length; i++) {
+        for (int i = 0; i < oceny.length; i++) 
+        {
             System.out.println("Ocena " + (i + 1) + ": " + oceny[i]);
             suma += oceny[i];
         }
@@ -94,7 +116,8 @@ public class StudentManager {
         System.out.println("Średnia ocen: " + (suma / oceny.length));
     }
 
-    public static boolean czyWprowadzicOceny(Scanner scanner, String przedmiot) {
+    public static boolean czyWprowadzicOceny(Scanner scanner, String przedmiot) 
+    {
         System.out.println("Czy chcesz wprowadzić oceny z przedmiotu " + przedmiot + "? (tak/nie)");
         String odpowiedz = scanner.next();
         return odpowiedz.equalsIgnoreCase("tak");
